@@ -1,34 +1,40 @@
 #!/usr/bin/python3
+"""Start web application with two routings
 """
-Script that starts a Flask web application
-"""
+
 from flask import Flask
-
-
 app = Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
+@app.route('/')
 def hello():
+    """Return string when route queried
+    """
     return 'Hello HBNB!'
 
 
-@app.route('/hbnb', strict_slashes=False)
-def holberon():
+@app.route('/hbnb')
+def hbnb():
+    """Return string when route queried
+    """
     return 'HBNB'
 
 
-@app.route('/c/<text>', strict_slashes=False)
-def c_text(text):
-    return "C {}" .format(text.replace("_", " "))
+@app.route('/c/<text>')
+def c_is_fun(text):
+    """Return reformatted text
+    """
+    return 'C ' + text.replace('_', ' ')
 
 
-@app.route('/python/', strict_slashes=False)
-@app.route('/python/<text>', strict_slashes=False)
-def python_text(text='is cool'):
-    """ Function called with /python/<text> route """
-    return "Python {}".format(text.replace("_", " "))
+@app.route('/python/')
+@app.route('/python/<text>')
+def python_with_text(text='is cool'):
+    """Reformat text based on optional variable
+    """
+    return 'Python ' + text.replace('_', ' ')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    app.url_map.strict_slashes = False
     app.run(host='0.0.0.0', port=5000)
